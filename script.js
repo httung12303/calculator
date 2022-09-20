@@ -1,22 +1,77 @@
-const display = document.getElementById('display');
-const mathButtons = document.querySelectorAll('.math-button');
+const operationDisplay = document.querySelector('#operation-display  span');
+const inputDisplay = document.querySelector('#input-display span');
+const digitButtons = document.querySelectorAll('.digit');
 const clearButton = document.getElementById('clear-button');
 const deleteButton = document.getElementById('delete-button');
-let ans = 0;
+const dotButton = document.querySelector('.dot');
+const operatorButtons = document.querySelectorAll('.operator');
+const equalButton = document.querySelector('.equal');
 
-clearButton.addEventListener('click', () => display.textContent = '');
-deleteButton.addEventListener('click', () => display.textContent = display.textContent.slice(0, -1));
-mathButtons.forEach(button => {
-    if(!button.classList.contains('equal-button')){
-        button.addEventListener('click', displayMathButton);
-    }
+let ans = 0;
+let currentOperator = '';
+let digitInputFlag = true;
+
+clearButton.addEventListener('click', clear);
+deleteButton.addEventListener('click', deleteInput);
+digitButtons.forEach(button => button.addEventListener('click', displayInput));
+operatorButtons.forEach(button => button.addEventListener('click',updateOperation));
+equalButton.addEventListener('click', equalOperation);
+dotButton.addEventListener('click', () => {
+    if(!digitInputFlag || inputDisplay.textContent.includes('.')) {
+        return;
+    } 
+    inputDisplay.textContent += dotButton.value;
 });
 
-function displayMathButton() {
-    display.textContent += this.value; 
+function deleteInput() {
+    inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
 }
-function operate(a, b, operator) {
-    switch (operator) {
+function displayOperation() {
+    operationDisplay.textContent += this.value; 
+}
+function displayInput() {
+    if(!digitInputFlag || inputDisplay.textContent === '0') {
+        inputDisplay.textContent = '';
+    }
+    digitInputFlag = true;
+    inputDisplay.textContent += this.value; 
+}
+function clear() {
+    operationDisplay.textContent = '';
+    inputDisplay.textContent = '0'; 
+    ans = 0;
+    currentOperator = '';
+}
+function updateOperation() {
+    if(digitInputFlag) {
+        let temp = operate();
+        if(typeof temp === 'string') {
+            alert(temp);
+            return;
+        }  
+        ans = temp;
+    }
+    currentOperator = this.value;
+    operationDisplay.textContent = `${ans} ${currentOperator}`;
+    digitInputFlag = false;
+}
+function equalOperation() {
+    if(!digitInputFlag || currentOperator === '') {
+        return;
+    }
+    let temp = operate();
+    if(typeof temp === 'string') {
+        alert(temp);
+        return;
+    }
+    operationDisplay.textContent = `${ans} ${currentOperator} ${inputDisplay.textContent} =`;
+    ans = temp;
+    inputDisplay.textContent = ans.toString();
+}
+function operate() {
+    let a = parseFloat(ans);
+    let b = parseFloat(inputDisplay.textContent);
+    switch (currentOperator) {
         case '+':
             return add(a, b);
             break;
@@ -27,16 +82,19 @@ function operate(a, b, operator) {
             return multiply(a, b);
             break;
         case '/':
+            if(b === 0) {
+                return "Divided by zero";
+            }
             return divide(a, b);
             break;
         default:
-            return "Invalid operator: " + operator;    
+            return b;  
     }
 }
 function add(a, b) {
     return a + b;
 }
-function substract(a, b) {
+function subtract(a, b) {
     return a - b;
 }
 function multiply(a, b) {
