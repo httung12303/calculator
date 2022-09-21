@@ -24,7 +24,8 @@ dotButton.addEventListener('click', () => {
 });
 
 function deleteInput() {
-    inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
+    const temp = inputDisplay.textContent.slice(0, -1);
+    inputDisplay.textContent = temp === '' ? '0' : temp;
 }
 function displayOperation() {
     operationDisplay.textContent += this.value; 

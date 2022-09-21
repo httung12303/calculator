@@ -4,35 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simple calculator</title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="content">
-        <div id="display">Something</div>
-        <div id="function-buttons-container">
-            <button class="function-button" id="clear">Clear</button>
-            <button class="function-button" id="delete">Delete</button>
-        </div>
-        <div id="math-buttons-container">
-            <button class="math-button" value="7">7</button>
-            <button class="math-button" value="8">8</button>
-            <button class="math-button" value="9">9</button>
-            <button class="math-button" value="*">/</button>
-            <button class="math-button" value="4">4</button>
-            <button class="math-button" value="5">5</button>
-            <button class="math-button" value="6">6</button>
-            <button class="math-button" value="*">x</button>
-            <button class="math-button" value="1">1</button>
-            <button class="math-button" value="2">2</button>
-            <button class="math-button" value="3">3</button>
-            <button class="math-button" value="-">-</button>
-            <button class="math-button" value=".">.</button>
-            <button class="math-button" value="0">0</button>
-            <button class="math-button" value="=">=</button>
-            <button class="math-button" value="+">+</button>
+    <div id="content-container">
+        <div id="content">
+            <div id="display">
+                <div id="operation-display"><span></span></div>
+                <div id="input-display"><span>0</span></div>
+            </div>
+            <div id="function-buttons-container">
+                <button class="function-button" id="clear-button">Clear</button>
+                <button class="function-button" id="delete-button">Delete</button>
+            </div>
+            <div id="math-buttons-container">
+                <button class="math-button digit" value="7">7</button>
+                <button class="math-button digit" value="8">8</button>
+                <button class="math-button digit" value="9">9</button>
+                <button class="math-button operator" value="/">/</button>
+                <button class="math-button digit" value="4">4</button>
+                <button class="math-button digit" value="5">5</button>
+                <button class="math-button digit" value="6">6</button>
+                <button class="math-button operator" value="x">x</button>
+                <button class="math-button digit" value="1">1</button>
+                <button class="math-button digit" value="2">2</button>
+                <button class="math-button digit" value="3">3</button>
+                <button class="math-button operator" value="-">-</button>
+                <button class="math-button dot" value=".">.</button>
+                <button class="math-button digit" value="0">0</button>
+                <button class="math-button equal" value="=">=</button>
+                <button class="math-button operator" value="+">+</button>
+            </div>
         </div>
     </div>
+    <footer>Built by httung12303 <a href="https://github.com/httung12303"><img src="github.png"></a></footer>
 </body>
 </html>
